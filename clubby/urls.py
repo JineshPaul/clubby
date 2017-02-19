@@ -28,5 +28,5 @@ urlpatterns = [
     url('', include('django.contrib.auth.urls')),
     url(r"^social/", include('social.apps.django_app.urls', namespace='social')),
     url(r"^auth/", include('rest_framework_social_oauth2.urls')),
-    #url(r"^v1.0/", include("api.url", namespace='api_urls')),
+    url(r"^v1.0/", include('api.url', namespace='api_urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
