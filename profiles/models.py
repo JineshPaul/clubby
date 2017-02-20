@@ -1,4 +1,3 @@
-
 from django.contrib.auth.models import AbstractBaseUser
 from django.conf import settings
 from django.core.validators import RegexValidator
@@ -17,8 +16,12 @@ from api import utils as api_utils
 # Create your models here.
 
 
-
 class User(AbstractBaseUser, TimeStampedModel):
+
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
 
     id = models.CharField(_('user id'), max_length=20, primary_key=True)
     first_name = models.CharField(_('first name'), max_length=254, blank=True, default="")
@@ -31,7 +34,9 @@ class User(AbstractBaseUser, TimeStampedModel):
                                            " '9999999999'. Up to 12 digits allowed."))
     phone_number = models.CharField(_('phone_number'), validators=[phone_regex], max_length=12, blank=False, null=False,
                                     unique=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, default="")
     dob = models.DateField(_('dob'), blank=True, null=True)
+    image = models.ImageField(upload_to="profile/image/", max_length=700, blank=True, null=True)
     is_staff = models.BooleanField(_('staff status'), default=False)
     is_active = models.BooleanField(_('active'), default=True,
                                     help_text=_(
