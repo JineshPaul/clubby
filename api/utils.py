@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import status
+from random import randint
 
 import string
 import random
@@ -50,4 +51,35 @@ def create_error_message(error_dict):
     for error in error_dict:
         error_string += error_dict[error] + ". "
     return error_string
+
+
+def generate_error_message(errors):
+    """
+    :param errors:
+    :return: Returns a string used to send directly as error message.
+    """
+    error_message = ""
+    for key, value in errors.items():
+        error_message = key.replace("_", " ").title() + " : " + error_message + " " + str(" ".join(value)) + ", "
+    return error_message[:-2]
+
+
+def random_with_N_digits(n):
+    """
+    :param n: the length of random number length
+    :return: random number of length n
+    """
+    range_start = 10**(n - 1)
+    range_end = (10**n) - 1
+    return randint(range_start, range_end)
+
+
+def code_generator(size, chars=string.ascii_uppercase + string.digits):
+    """
+
+    :param size:
+    :param chars:
+    :return: a random string with caps alphabet and numeric fields
+    """
+    return ''.join(random.choice(chars) for _ in range(size))
 

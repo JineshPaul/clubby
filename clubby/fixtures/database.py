@@ -8,7 +8,7 @@ from profiles.models import User
 import time
 
 
-user = User.objects.create_superuser(email='jineshpaul89@gmail.com', password='admin@123')
+user = User.objects.create_superuser(email='admin@clubby.com', password='admin@123')
 time.sleep(1)
 
 application = Application(client_id=settings.CLIENT_ID, user=user, client_type='confidential',

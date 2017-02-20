@@ -13,7 +13,7 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-
+from oauth2_provider import models as oauth_models
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
@@ -21,6 +21,7 @@ from oauth2_provider import models as oauth_models
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 import api
+from core import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -28,5 +29,11 @@ urlpatterns = [
     url('', include('django.contrib.auth.urls')),
     url(r"^social/", include('social.apps.django_app.urls', namespace='social')),
     url(r"^auth/", include('rest_framework_social_oauth2.urls')),
-    url(r"^v1.0/", include('api.url', namespace='api_urls')),
+    url(r"^v1.0/", include('api.urls', namespace='api_urls')),
+    url(r"^$", views.index, name='index'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.unregister(oauth_models.AccessToken)
+admin.site.unregister(oauth_models.Grant)
+admin.site.unregister(oauth_models.RefreshToken)
+admin.site.unregister(oauth_models.Application)
