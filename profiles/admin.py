@@ -37,4 +37,25 @@ class UserAdmin(admin.ModelAdmin):
     empty_value_display = 'unknown'
 
 
+class AddressAdmin(admin.ModelAdmin):
+    """
+    to achieve:
+    1. Changing User Phone number or email id
+    2. To add remarks against a user
+    3. Be able to trigger a email id verification from admin panel
+    4. Showing total online users at a time
+    """
+    formfield_overrides = {
+        internal_models.CharField: {'widget': TextInput(attrs={'size': '10'})},
+        internal_models.EmailField: {'widget': TextInput(attrs={'size': '17'})},
+        internal_models.TextField: {'widget': Textarea(attrs={'rows': '2', 'cols': '40'})},
+    }
+    search_fields = ['city', 'state']
+    list_display = ['id', 'address1','address2','pincode','city', 'state','country']
+    list_editable = ['address1','address2','pincode','city', 'state','country']
+    list_filter = ['state']
+    empty_value_display = 'unknown'
+
+
 admin.site.register(models.User, UserAdmin)
+admin.site.register(models.Address, AddressAdmin)

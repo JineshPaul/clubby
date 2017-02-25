@@ -23,6 +23,14 @@ class User(AbstractBaseUser, TimeStampedModel):
         ('F', 'Female'),
     )
 
+    OCCUPATION_COHOICES = (
+        ('P', 'Producer'),
+        ('D', 'Director'),
+        ('A', 'Actor'),
+        ('C', 'Choreographer'),
+        ('S', 'Stunt Master')
+    )
+
     id = models.CharField(_('user id'), max_length=20, primary_key=True)
     first_name = models.CharField(_('first name'), max_length=254, blank=True, default="")
     middle_name = models.CharField(_('middle name'), max_length=254, blank=True, default="")
@@ -36,6 +44,7 @@ class User(AbstractBaseUser, TimeStampedModel):
                                     unique=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, default="")
     dob = models.DateField(_('dob'), blank=True, null=True)
+    occupation = models.CharField(max_length=1, choices=OCCUPATION_COHOICES, blank=True, default="")
     image = models.ImageField(upload_to="profile/image/", max_length=700, blank=True, null=True)
     is_staff = models.BooleanField(_('staff status'), default=False)
     is_active = models.BooleanField(_('active'), default=True,
@@ -94,3 +103,18 @@ class User(AbstractBaseUser, TimeStampedModel):
         Returns the short name for the user.
         """
         return self.first_name.strip()
+
+
+class Address(TimeStampedModel):
+
+    user = models.OneToOneField(User)
+    address1 = models.TextField(_("address1"), null=True, blank=True)
+    address2 = models.TextField(_("address2"), null=True, blank=True)
+    pincode = models.CharField(_('Pincode '), max_length=254, blank=True, null=True)
+    city = models.CharField(_('City '), max_length=254, blank=True, null=True)
+    district =models.CharField(_('District '), max_length=254, blank=True, null=True)
+    state = models.CharField(_('State '), max_length=254, blank=True, null=True)
+    country = models.CharField(_('Country '), max_length=254, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.user) + " " + str(self.pincode)

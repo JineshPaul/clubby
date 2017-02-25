@@ -17,15 +17,25 @@ from profiles import models as profile_models
 
 class Movie(TimeStampedModel):
     """
-    Store the portfolio information
+    Store the Movie information
     """
+    CATEGORY_CHOICES = (
+        ('D', 'Drama'),
+        ('A', 'Action'),
+        ('T', 'Thriller'),
+        ('F', 'Fantacy'),
+        ('C' , 'Animation')
+         )
+
     user = models.ForeignKey(profile_models.User)
+    movie = models.FileField(upload_to="movies/", max_length=700, blank=True, null=True)
+    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, blank=True, default="")
     title = models.CharField(_('Title '), max_length=254, blank=False, null=False)
     description = models.TextField(_("Description"), null=True, blank=True)
     is_deleted = models.BooleanField(_('is deleted'), default=False)
 
     def __str__(self):
-        return str(self.user) + str(self.id)
+        return str(self.title)
 
 
 class Review(TimeStampedModel):
@@ -38,7 +48,7 @@ class Review(TimeStampedModel):
     is_deleted = models.BooleanField(_('is deleted'), default=False)
 
     def __str__(self):
-        return str(self.user) + str(self.id)
+        return str(self.movie) + str(self.id)
 
 
 class Rating(TimeStampedModel):
@@ -51,7 +61,17 @@ class Rating(TimeStampedModel):
     is_deleted = models.BooleanField(_('is deleted'), default=False)
 
     def __str__(self):
-        return str(self.user) + str(self.id)
+        return str(self.movie) + str(self.id)
+
+
+class Cast(models.Model):
+    movie = models.ForeignKey(Movie)
+    role_name = models.CharField(_('Cast Name '), max_length=254, blank=False, null=False)
+    real_name = models.CharField(_('Real name '), max_length=254, blank=False, null=False)
+
+    def __str__(self):
+        return str(self.movie) + str(self.real_name)
+
 
 
 

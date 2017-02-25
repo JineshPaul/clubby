@@ -1,6 +1,8 @@
 .settings
 .idea
 **/__pycache__
+*/__pycache__
+__pycache__
 error_log
 webapp/media
 webapp/statics
