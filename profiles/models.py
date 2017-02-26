@@ -28,7 +28,13 @@ class User(AbstractBaseUser, TimeStampedModel):
         ('D', 'Director'),
         ('A', 'Actor'),
         ('C', 'Choreographer'),
-        ('S', 'Stunt Master')
+        ('S', 'Stunt Master'),
+        ('R', 'Reviewer')
+    )
+
+    MARITAL_STATUS_CHOICES = (
+        ('S', 'Single'),
+        ('M', 'Married')
     )
 
     id = models.CharField(_('user id'), max_length=20, primary_key=True)
@@ -42,9 +48,12 @@ class User(AbstractBaseUser, TimeStampedModel):
                                            " '9999999999'. Up to 12 digits allowed."))
     phone_number = models.CharField(_('phone_number'), validators=[phone_regex], max_length=12, blank=False, null=False,
                                     unique=True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, default="")
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
+    marital_status = models.CharField(choices=MARITAL_STATUS_CHOICES, max_length=1,blank=True, null=True)
     dob = models.DateField(_('dob'), blank=True, null=True)
     occupation = models.CharField(max_length=1, choices=OCCUPATION_COHOICES, blank=True, default="")
+    email_verified = models.BooleanField(_('email verification status'), default=False)
+    phone_number_verified = models.BooleanField(_('phone number verification status'), default=False)
     image = models.ImageField(upload_to="profile/image/", max_length=700, blank=True, null=True)
     is_staff = models.BooleanField(_('staff status'), default=False)
     is_active = models.BooleanField(_('active'), default=True,
@@ -118,3 +127,15 @@ class Address(TimeStampedModel):
 
     def __str__(self):
         return str(self.user) + " " + str(self.pincode)
+
+
+class EmailCode(TimeStampedModel):
+    """
+    Stores an alphanumeric code of length 50 for verification
+    """
+    user = models.OneToOneField(User)
+    code = models.CharField(max_length=50)
+    expires_at = models.DateTimeField(auto_now=False)
+
+    def __str__(self):
+        return str(self.user.email) + " " + str(self.user.phone_number)

@@ -6,6 +6,6 @@ import profiles
 urlpatterns = [
     url(r"^api-auth/", include("rest_framework.urls", namespace="rest_framework")),
     url(r"^user/", include('profiles.urls', namespace='profiles_urls')),
-    #url(r"^core/", include('core.urls', namespace='core_urls')),
+    url(r"^core/", include('core.urls', namespace='core_urls')),
     #url(r"^open/", include('external_api.urls', namespace='external_api_urls'))
 ]

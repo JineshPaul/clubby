@@ -19,6 +19,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_URL = "http://10.0.2.15:8080"
 SITE_BASE_URL = "http://192.168.1.159"
 
+LOGIN_URL = "http://10.0.2.15:8080"
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -28,6 +30,7 @@ SECRET_KEY = 'dsk)xe!$5mc$66qy5f_^shcah13@=la2&dl7#tvosda7%3tva@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+USE_HTTPS = False
 
 ALLOWED_HOSTS = []
 
@@ -202,6 +205,16 @@ AUTHENTICATION_BACKENDS = (
     # 'social.backends.twitter.TwitterOAuth',
 
 )
+
+
+EMAIL_BACKEND='django_smtp_ssl.SSLEmailBackend'
+EMAIL_USE_SSL = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'jineshpaul89@gmail.com'
+EMAIL_HOST_PASSWORD = 'jinbin1403'
+DEFAULT_FROM_EMAIL = 'jineshpaul89@gmail.com'
+
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''

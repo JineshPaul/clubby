@@ -29,7 +29,7 @@ class Movie(TimeStampedModel):
 
     user = models.ForeignKey(profile_models.User)
     movie = models.FileField(upload_to="movies/", max_length=700, blank=True, null=True)
-    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, blank=True, default="")
+    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, blank=True, null=True)
     title = models.CharField(_('Title '), max_length=254, blank=False, null=False)
     description = models.TextField(_("Description"), null=True, blank=True)
     is_deleted = models.BooleanField(_('is deleted'), default=False)

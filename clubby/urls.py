@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 import api
 from core import views
+from profiles import views as profile_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -31,6 +32,9 @@ urlpatterns = [
     url(r"^auth/", include('rest_framework_social_oauth2.urls')),
     url(r"^v1.0/", include('api.urls', namespace='api_urls')),
     url(r"^$", views.index, name='index'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        profile_views.password_reset_confirm, name='password_reset_confirm'),
+    url(r'^reset/done/$', profile_views.password_reset_complete, name='password_reset_complete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.unregister(oauth_models.AccessToken)

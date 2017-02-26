@@ -51,11 +51,22 @@ class AddressAdmin(admin.ModelAdmin):
         internal_models.TextField: {'widget': Textarea(attrs={'rows': '2', 'cols': '40'})},
     }
     search_fields = ['city', 'state']
-    list_display = ['id', 'address1','address2','pincode','city', 'state','country']
-    list_editable = ['address1','address2','pincode','city', 'state','country']
+    list_display = ['id','user','pincode','city', 'state','country']
+    list_editable = ['pincode','city', 'state','country']
     list_filter = ['state']
     empty_value_display = 'unknown'
+
+class EmailCodeAdmin(admin.ModelAdmin):
+    formfield_overrides = {
+        internal_models.CharField: {'widget': TextInput(attrs={'size': '10'})},
+        internal_models.EmailField: {'widget': TextInput(attrs={'size': '17'})},
+        internal_models.TextField: {'widget': Textarea(attrs={'rows': '2', 'cols': '40'})},
+    }
+    search_fields = ['user']
+    list_display = ['user']
+
 
 
 admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Address, AddressAdmin)
+admin.site.register(models.EmailCode, EmailCodeAdmin)
