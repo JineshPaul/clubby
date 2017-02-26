@@ -11,3 +11,4 @@ webapp/statics
 */**/.DS_Store
 *.swp**/.DS_Store
 *.swp
+*.se
