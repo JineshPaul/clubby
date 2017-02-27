@@ -22,3 +22,29 @@ class MovieAdd_Test(APISimpleTestCase):
         self.assertEqual(response.status_code, 200)
 
 
+class CastAdd_Test(APISimpleTestCase):
+    allow_database_queries = True
+
+    def test(self):
+        factory = APIRequestFactory()
+        view = views.Cast.as_view()
+        user = profile_model.User.objects.get(email='jineshpaul89@gmail.com')
+        data = {'cast':[{'real_name':'Jack Paul','role_name':'J Paul','email':'jackui@gmail.com','phone_number':'9986729888'}],'movie':'2','cast_id':'2'}
+        request = factory.post(settings.BASE_URL + reverse('api_urls:core_urls:cast-add'), data=data, format='json')
+        force_authenticate(request, user=user)
+        response = view(request)
+        self.assertEqual(response.status_code, 200)
+
+class CastGet_Test(APISimpleTestCase):
+    allow_database_queries = True
+
+    def test(self):
+        factory = APIRequestFactory()
+        view = views.Cast.as_view()
+        user = profile_model.User.objects.get(email='jineshpaul89@gmail.com')
+        data = {'movie':'2'}
+        request = factory.get(settings.BASE_URL + reverse('api_urls:core_urls:cast-get'), data=data, format='json')
+        force_authenticate(request, user=user)
+        response = view(request)
+        self.assertEqual(response.status_code, 200)
+

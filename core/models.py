@@ -2,7 +2,7 @@
 from enum import IntEnum
 from dateutil.relativedelta import relativedelta
 from django.db.models import Avg, Max, Sum, Q
-
+from django.core.validators import RegexValidator
 from django.contrib.postgres.fields import HStoreField, ArrayField
 from django.db import models
 from django.db.models import Sum
@@ -65,9 +65,23 @@ class Rating(TimeStampedModel):
 
 
 class Cast(models.Model):
+
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+
     movie = models.ForeignKey(Movie)
     role_name = models.CharField(_('Cast Name '), max_length=254, blank=False, null=False)
     real_name = models.CharField(_('Real name '), max_length=254, blank=False, null=False)
+    email = models.EmailField(_('email address'), max_length=254, unique=True,blank=False, null=False, default="")
+    phone_regex = RegexValidator(regex='[0-9]{10,12}',
+                                 message=_("Phone number must be entered in the format:"
+                                           " '9999999999'. Up to 12 digits allowed."))
+    phone_number = models.CharField(_('phone_number'), validators=[phone_regex], max_length=12, blank=False, null=False,
+                                    unique=True,default="")
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
+    image = models.ImageField(upload_to="cast/image/", max_length=700, blank=True, null=True)
 
     def __str__(self):
         return str(self.movie) + str(self.real_name)

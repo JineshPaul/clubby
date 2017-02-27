@@ -104,3 +104,87 @@ class DeleteMovie(APIView):
              return api_utils.response({"message": constants.SUCCESS})
         except:
             return api_utils.response({}, status.HTTP_400_BAD_REQUEST, "Movie Not found in server")
+
+
+class Cast(APIView):
+    """
+    Add and retrieve cast
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self,request):
+        """
+        :param request:
+        :return:
+        """
+        try:
+            movie = models.Movie.objects.get(pk=2)
+            casts = movie.cast_set.all()
+            serializer = serializers.CastSerializer(casts,many=True)
+            if serializer.is_valid:
+                return api_utils.response(serializer.data, status.HTTP_200_OK)
+            else:
+                return api_utils.response({}, status.HTTP_400_BAD_REQUEST,
+                                          api_utils.generate_error_message(serializer.errors))
+        except:
+            return api_utils.response({}, status.HTTP_400_BAD_REQUEST, "Movie Not found")
+
+
+    def post(self,request):
+        """
+        data format = {'cast':[{'real_name','role_name','email'}],'movie':'2','cast_id':'1'} # cast_id only if it update
+
+        :param request:
+        :return:
+        """
+        if request.data.get("cast_id"):
+            print("Im in")
+            try:
+                cast = models.Cast.objects.get(pk=request.data.get("cast_id"))
+                casts = request.data.get("cast")
+                for ca in casts:
+                    serializer = serializers.CastSerializer(data=ca)
+                    if serializer.is_valid():
+                        cast.role_name = serializer.validated_data.get("role_name")
+                        cast.real_name = serializer.validated_data.get("real_name")
+                        cast.email = serializer.validated_data.get("email")
+                        cast.phone_number = serializer.validated_data.get("phone_number")
+                        cast.gender = serializer.validated_data.get("gender")
+                        cast.save()
+                        print("sucess")
+                    else:
+                        print(serializer.errors)
+                        return api_utils.response({}, status.HTTP_400_BAD_REQUEST,
+                                                  api_utils.generate_error_message(serializer.errors))
+                return api_utils.response({"message": constants.SUCCESS})
+            except:
+                print("something wrong with id")
+                return api_utils.response({}, status.HTTP_400_BAD_REQUEST, "Cast Not found")
+        else:
+            if request.data.get("cast"):
+                casts = request.data.get("cast")
+                try:
+                    movie = models.Movie.objects.get(pk=request.data.get('movie'))
+                    errors = []
+                    for cast in casts:
+                        serializer = serializers.CastSerializer(data=cast)
+                        if serializer.is_valid():
+                            cast = models.Cast.objects.create(movie=movie,
+                                                              role_name = serializer.validated_data.get("role_name"),
+                                                              real_name=serializer.validated_data.get("real_name"),
+                                                              email=serializer.validated_data.get("email"),
+                                                              phone_number=serializer.validated_data.get("phone_number"),
+                                                              gender=serializer.validated_data.get("gender")
+                                                              )
+                        else:
+                            errors.append(serializer.errors)
+                    print(errors)
+                    return api_utils.response({"message": constants.SUCCESS})
+                except models.Movie.DoesNotExist:
+                    print("Movi not exist")
+                    return api_utils.response({}, status.HTTP_400_BAD_REQUEST, "Movie Not found")
+            else:
+                print("No cast details")
+                return api_utils.response({}, status.HTTP_400_BAD_REQUEST, "No cast details")
+
+
