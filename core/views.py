@@ -175,7 +175,11 @@ class Cast(APIView):
                                                               email=serializer.validated_data.get("email"),
                                                               phone_number=serializer.validated_data.get("phone_number"),
                                                               gender=serializer.validated_data.get("gender")
-                                                              )
+                                                             )
+                            """
+                            if serializer.validated_data.get("email") is not None and serializer.validated_data.get("email") != "":
+                                profile_helpers.send_invitation_mail(serializer.validated_data.get("email"))
+                            """
                         else:
                             errors.append(serializer.errors)
                     print(errors)
