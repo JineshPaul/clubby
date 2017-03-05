@@ -7,7 +7,9 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 """
 
-import os
+import os,sys
+sys.path.append('/var/www/html/clubby')
+sys.path.append('/home/ubuntu/.local/lib/python3.5/site-packages')
 
 from django.core.wsgi import get_wsgi_application
 

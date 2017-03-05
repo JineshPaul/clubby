@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os,sys
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 BASE_URL = "http://10.0.2.15:8080"
 SITE_BASE_URL = "http://192.168.1.159"
@@ -29,10 +29,10 @@ LOGIN_URL = "http://10.0.2.15:8080"
 SECRET_KEY = 'dsk)xe!$5mc$66qy5f_^shcah13@=la2&dl7#tvosda7%3tva@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 USE_HTTPS = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'profiles.User'
 
@@ -122,6 +122,7 @@ DATABASES = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'statics')
 #STATIC_ROOT = '/statics/'
+
 
 STATICFILES_DIRS = (
    os.path.join(BASE_DIR, 'static'),
