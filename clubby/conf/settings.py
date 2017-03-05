@@ -16,11 +16,6 @@ import os,sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-BASE_URL = "http://10.0.2.15:8080"
-SITE_BASE_URL = "http://192.168.1.159"
-
-LOGIN_URL = "http://10.0.2.15:8080"
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -236,6 +231,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+try:
+    from .local_settings import *
+    # you can add SITE_BASE_URL = "localhost:8000" in a file called local_settings.py
+except:
+    # Ideally this should be the base url of the site since there is no domain name its like this
+    BASE_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com"
+    SITE_BASE_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com"
+    LOGIN_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com"
 
 
 # Static files (CSS, JavaScript, Images)

@@ -6,6 +6,7 @@ __pycache__
 error_log
 webapp/media
 webapp/statics
+webapp/conf/local_settings.py
 *.pyc
 **/.DS_Store
 */**/.DS_Store
