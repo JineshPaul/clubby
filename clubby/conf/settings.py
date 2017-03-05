@@ -238,9 +238,9 @@ try:
     # you can add SITE_BASE_URL = "localhost:8000" in a file called local_settings.py
 except:
     # Ideally this should be the base url of the site since there is no domain name its like this
-    BASE_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com"
-    SITE_BASE_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com"
-    LOGIN_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com"
+    BASE_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com/"
+    SITE_BASE_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com/"
+    LOGIN_URL = "http://ec2-35-154-167-9.ap-south-1.compute.amazonaws.com/"
 
 
 # Static files (CSS, JavaScript, Images)

@@ -149,7 +149,6 @@ class Register(APIView):
                                       status.HTTP_404_NOT_FOUND,
                                       "phone already exist")
         if serializer.is_valid():
-            print("Success serializer")
             username = serializer.validated_data.get("email")
             user = models.User.objects.create_user(email=email, username=username, password=password,
                                                        phone_number=phone)
@@ -169,6 +168,8 @@ class Register(APIView):
             access_token = helpers.get_access_token(user, password)
             bearer_token = access_token['access_token']
             headers = {"Authorization": "Bearer " + bearer_token}
+            print(api_utils.response({"user": user_response
+                                       }, headers=headers))
             return api_utils.response({"user": user_response
                                        }, headers=headers)
         else:
