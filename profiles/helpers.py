@@ -25,12 +25,12 @@ def get_access_token(user, password,is_web=True):
     """
     data = {'grant_type': 'password', 'username': user.username, 'password': password}
     auth = HTTPBasicAuth(settings.CLIENT_ID, settings.CLIENT_SECRET)
-    response = requests.post(settings.BASE_URL + '/o/token/', auth=auth, data=data)
+    response = requests.post(settings.BASE_URL + '/o/token/', auth=auth, json=data)
     responseJSON = response.json()
     if not responseJSON.get('access_token'):
         #logger = logging.getLogger('django.error')
         #logger.error("Profiles: access_token: Access token failed for user with id: " + user.id)
-        print("access error no token ")
+        print("access token error. ")
 
     return responseJSON
 
