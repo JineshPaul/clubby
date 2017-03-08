@@ -30,6 +30,7 @@ def get_access_token(user, password,is_web=True):
     if not responseJSON.get('access_token'):
         #logger = logging.getLogger('django.error')
         #logger.error("Profiles: access_token: Access token failed for user with id: " + user.id)
+        print(responseJSON)
         print("access token error. ")
 
     return responseJSON
