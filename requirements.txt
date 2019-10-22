@@ -60,7 +60,7 @@ path.py==8.1.2
 pep8==1.7.0
 pexpect==4.0.1
 pickleshare==0.5
-Pillow==3.2.0
+Pillow==6.2.0
 plainbox==0.25
 psycopg2==2.5.3
 ptyprocess==0.5
