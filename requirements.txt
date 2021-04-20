@@ -64,7 +64,7 @@ Pillow==3.2.0
 plainbox==0.25
 psycopg2==2.5.3
 ptyprocess==0.5
-py==1.4.31
+py==1.10.0
 pyasn1==0.1.9
 pycups==1.9.73
 pycurl==7.43.0
