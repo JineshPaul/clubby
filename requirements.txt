@@ -71,7 +71,7 @@ pycurl==7.43.0
 pygobject==3.20.0
 PyJWT==1.4.2
 pyparsing==2.0.3
-PyPDF2==1.25.1
+PyPDF2==1.27.5
 pypdftk==0.3
 pytest==3.0.3
 pytest-cache==1.0
