@@ -50,7 +50,7 @@ lxml==3.5.0
 Mako==1.0.3
 MarkupSafe==0.23
 num2words==0.5.3
-numpy==1.11.0
+numpy==1.21.0
 oauth2-provider==0.0
 oauthlib==1.0.3
 onboard==1.2.0
