@@ -87,7 +87,7 @@ python3-ghostscript==0.5.0
 python3-openid==3.0.10
 pytz==2016.6.1
 pyxdg==0.25
-reportlab==3.3.0
+reportlab==3.5.55
 requests==2.11.1
 requests-oauthlib==0.7.0
 scipy==0.17.1
